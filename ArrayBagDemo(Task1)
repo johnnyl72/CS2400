@@ -1,5 +1,3 @@
-package cs2400;
-
 public class ArrayBagDemo {
 	public static void main(String[] args) {
 		
