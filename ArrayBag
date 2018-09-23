@@ -3,10 +3,10 @@ package cs2400;
 public class ArrayBag<T> implements BagInterface<T>{
 	
 	private final T[] bag;
-	private static final int DEFAULT_CAPACITY = 25;
+	private static final int DEFAULT_CAPACITY = 5;
 	private int numberOfEntries;
 	private boolean integrityOK = false;
-	private static final int MAX_CAPACITY = 10000;
+	private static final int MAX_CAPACITY = 5;
 	
 	public ArrayBag() {
 		this(DEFAULT_CAPACITY);
