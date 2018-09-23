@@ -8,19 +8,28 @@ public class ArrayBagDemo {
 			add(booksOnTable, books);
 			showBag(booksOnTable);
 			bagContains(booksOnTable, books);
-		System.out.println("\nRemoving a book...");
-			booksOnTable.remove();
-			showBag(booksOnTable);
-		System.out.println("Clearing all books from stack one at a time...");
-		Object[] bagArray = booksOnTable.toArray();
-		for (int index = 0; index < bagArray.length; index++)
-		{
-			booksOnTable.remove();
-			System.out.println("Amount of books left on table: " + booksOnTable.getCurrentSize());
-		} // end for
-		System.out.println("Is the table empty now?");
-		System.out.println(booksOnTable.isEmpty());
-		
+			Scanner kb= new Scanner(System.in);
+			 do {
+				 System.out.print("What book would you like at (starting from bottom to top)? ");
+		    			if(!kb.hasNextInt()) {
+		    				System.out.println("Invalid reponse!");
+		    				kb.next();
+		    				valid = false;
+		    			}
+		    			else { 
+		    				int input = kb.nextInt();
+		    			
+		    				if((input <= 0 ) || (input >= 6)) {
+		    					System.out.println("Please enter between 0 through 5");
+		    					valid = false;
+		    					continue;
+		    				}
+		    				else 
+		    				search(input,booksOnTable);
+		    				valid = true;
+		    			}
+		    }while(!valid);
+			kb.close();
 	}//end of main
 	
 	private static void add(BagInterface<String> booksOnTable, String[] books){
