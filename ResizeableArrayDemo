@@ -1,0 +1,64 @@
+package cs2400;
+
+public class ResizeableArrayDemo {
+	public static void main(String[] args) {
+		BagInterface<String> booksOnTable = new ResizeableArrayBag<>();
+		String[] books = {"Book 1", "Book 2", "Book 3", "Book 4", "Book 5"};
+			add(booksOnTable, books);
+			showBag(booksOnTable);
+			System.out.println("Is the array full? (MAX 5): " + booksOnTable.isFull());
+		String[] moreBooks = {"Book 7", "Book 8"};
+			addingMore(booksOnTable,moreBooks);
+			showBag(booksOnTable);
+			System.out.println("Is the array full now? (MAX 10): " + booksOnTable.isFull() + "\n");
+			
+		
+			
+	}//end of main
+	
+	private static void search(int desired, BagInterface<String> booksOnTable) {
+		System.out.println("Checking book at position " + desired );
+		Object[] bagArray = booksOnTable.toArray();
+		System.out.print("The book is: " + bagArray[desired-1]);
+	    System.out.println("\n---------------------------------");
+		
+	}
+	private static void add(BagInterface<String> booksOnTable, String[] books){
+		System.out.println("Stacking more books onto table.....\n(Please note: Firt entry is the bottom book)");
+		for(int index = 0; index < books.length; index++) {
+			booksOnTable.add(books[index]);
+			System.out.print(books[index] + " ");
+		}
+		System.out.println("\n---------------------------------");
+	}
+	private static void addingMore(BagInterface<String> booksOnTable, String[] books){
+		System.out.println("Stacking more books onto table.....");
+		for(int index = 0; index < books.length; index++) {
+			booksOnTable.add(books[index]);
+			System.out.print("\nNew book added: ");
+			System.out.print(books[index] + " ");
+		}
+		System.out.println("\n---------------------------------");
+	}
+	
+	public static void showBag(BagInterface<String> booksOnTable) {
+		System.out.println("The bag contains " + booksOnTable.getCurrentSize() +
+                " books, as follows:");		
+	Object[] bagArray = booksOnTable.toArray();
+	for (int index = 0; index < bagArray.length; index++)
+	{
+		System.out.print(bagArray[index] + " ");
+	} // end for
+
+	System.out.println("\n----------------------------------");
+	}
+	
+	private static void bagContains(BagInterface<String> booksOnTable, String[] books)
+	{
+ 		System.out.println("Checking availibilty of books in pile...");
+      for (int index = 0; index < books.length; index++)
+         System.out.println("Does this bag contain " + books[index] + 
+                            "? " + booksOnTable.contains(books[index]));
+      System.out.println("---------------------------------");
+   } //
+}
