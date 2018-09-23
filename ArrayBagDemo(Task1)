@@ -1,6 +1,9 @@
+package cs2400;
+
+import java.util.Scanner;
 public class ArrayBagDemo {
 	public static void main(String[] args) {
-		
+		boolean valid = true;
 		BagInterface<String> booksOnTable = new ArrayBag<>();
 		String[] books = {"Book 1", "Book 2", "Book 3", "Book 4", "Book 5"};
 			add(booksOnTable, books);
@@ -28,8 +31,30 @@ public class ArrayBagDemo {
 		    			}
 		    }while(!valid);
 			kb.close();
+	System.out.println("Now performing other actions to show manipulation of books...");
+	System.out.println("\nRemoving a book...");
+	booksOnTable.remove();
+	showBag(booksOnTable);
+	
+	System.out.println("Clearing all books from stack one at a time...");
+	Object[] bagArray = booksOnTable.toArray();
+	for (int index = 0; index < bagArray.length; index++)
+	{
+		booksOnTable.remove();
+		System.out.println("Amount of books left on table: " + booksOnTable.getCurrentSize());
+	} // end for
+	System.out.println("Is the table empty now?");
+	System.out.println(booksOnTable.isEmpty());
+
 	}//end of main
 	
+	private static void search(int desired, BagInterface<String> booksOnTable) {
+		System.out.println("Checking book at position " + desired );
+		Object[] bagArray = booksOnTable.toArray();
+		System.out.print("The book is: " + bagArray[desired-1]);
+	    System.out.println("\n---------------------------------");
+		
+	}
 	private static void add(BagInterface<String> booksOnTable, String[] books){
 		System.out.println("Stacking books onto table.....\n(Please note: Firt entry is the bottom book)");
 		for(int index = 0; index < books.length; index++) {
