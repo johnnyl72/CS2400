@@ -20,8 +20,8 @@ public class ArrayBagDemo {
 		    			else { 
 		    				int input = kb.nextInt();
 		    			
-		    				if((input <= 0 ) || (input >= 6)) {
-		    					System.out.println("Please enter between 0 through 5");
+		    				if((input <= 0 ) || (input >= books.length +1)) {
+		    					System.out.println("Please enter between 0 through " + books.length);
 		    					valid = false;
 		    					continue;
 		    				}
