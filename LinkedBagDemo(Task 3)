@@ -1,5 +1,7 @@
 package cs2400;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class LinkedBagDemo
@@ -98,9 +100,10 @@ public class LinkedBagDemo
 	private static void displayBag(LinkedBagInterface<String> aBag)
 	{
 		System.out.println("The stack contains " + aBag.getCurrentSize() +
-		                   " books, as follows:");		
+		                   " books, as follows (from bottom to top): ");		
 		Object[] bagArray = aBag.toArray();
-		for (int index = 0; index < bagArray.length; index++)
+		Collections.reverse(Arrays.asList(bagArray));
+		for (int index = 0 ; index < bagArray.length; index++)
 		{
 			System.out.println(index+1 + ": " + bagArray[index] + " ");
 		} // end for
