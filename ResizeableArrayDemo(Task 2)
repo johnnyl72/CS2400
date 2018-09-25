@@ -24,7 +24,7 @@ public class ResizeableArrayDemo {
 		
 	}
 	private static void add(BagInterface<String> booksOnTable, String[] books){
-		System.out.println("Stacking more books onto table.....\n(Please note: Firt entry is the bottom book)");
+		System.out.println("Stacking more books onto table.....\n(Please note: First entry is the bottom book)");
 		for(int index = 0; index < books.length; index++) {
 			booksOnTable.add(books[index]);
 			System.out.print(books[index] + " ");
@@ -43,7 +43,7 @@ public class ResizeableArrayDemo {
 	
 	public static void showBag(BagInterface<String> booksOnTable) {
 		System.out.println("The bag contains " + booksOnTable.getCurrentSize() +
-                " books, as follows:");		
+                " books, as follows (from bottom to top):");		
 	Object[] bagArray = booksOnTable.toArray();
 	for (int index = 0; index < bagArray.length; index++)
 	{
@@ -60,5 +60,5 @@ public class ResizeableArrayDemo {
          System.out.println("Does this bag contain " + books[index] + 
                             "? " + booksOnTable.contains(books[index]));
       System.out.println("---------------------------------");
-   } //
+   }
 }
