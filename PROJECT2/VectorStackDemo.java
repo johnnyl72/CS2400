@@ -40,7 +40,7 @@ public class VectorStackDemo {
 		System.out.println("Removing a book.......");
 		stack.pop();
 		show(stack);
-		String[] moreBooks = {"Book 1", "Book 2","Book 3", "Book 4"};
+		String[] moreBooks = {"Book 1", "Book 2","Book 3", "Book 4","Book 5", "Book 6","Book 7", "Book 8"};
 		addingMore(stack,moreBooks);
 		show(stack);
 		}//end of main
