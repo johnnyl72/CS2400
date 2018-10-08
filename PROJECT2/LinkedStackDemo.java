@@ -35,7 +35,7 @@ public class LinkedStackDemo {
 	    				valid = true;
 	    			}
 	    }while(!valid);
-	
+	kb.close();
 	show(stack);
 	System.out.println("Removing a book.......");
 	stack.pop();
