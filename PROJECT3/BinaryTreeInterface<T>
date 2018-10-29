@@ -1,8 +1,8 @@
 package Homework3;
 
-public interface BinaryTreeInterface<T> extends SearchTreeInterface<T>{
-	
-	 public void setTree(T rootData);
-	 public void setTree(T rootData, BinaryTreeInterface<T> leftTree, BinaryTreeInterface<T> rightTree);
+public interface BinaryTreeInterface<T> extends TreeInterface<T>{
+
+	public void setTree(T rootData);
+	public void setTree(T rootData, BinaryTreeInterface<T> leftTree, BinaryTreeInterface<T> rightTree);
 	 
-} //end BinaryTreeInterface
+} 
