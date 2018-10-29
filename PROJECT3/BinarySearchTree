@@ -18,6 +18,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> extends BinaryTre
 	
 	public T getEntry(T entry) {
 		return findEntry(getRootNode(), entry);
+		
 	}
 	private T findEntry(BinaryNode<T> rootNode, T entry) {
 		T result = null;
@@ -38,14 +39,11 @@ public class BinarySearchTree<T extends Comparable<? super T>> extends BinaryTre
 		return getEntry(entry) != null;
 	}
 	
-	
-	
-	
-	
 	public T getPredecessor(T entry) {
 		return getPredecessor(getRootNode(), entry);
 	}
-	//only works when it has left children
+	
+	
 	private T getPredecessor(BinaryNode<T> rootNode, T entry) {
 		T result = null;
 		BinaryNode<T> tempNode;
@@ -54,7 +52,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> extends BinaryTre
 			
 			if(entry.compareTo(rootEntry) == 0) {
 				tempNode = rootNode.getLeftChild();
-				result = tempNode.getData();
+				result = tempNode.getRightmostData();
+				
 			}
 			else if(entry.compareTo(rootEntry) > 0)
 				result = getPredecessor(rootNode.getRightChild(), entry);
@@ -69,13 +68,17 @@ public class BinarySearchTree<T extends Comparable<? super T>> extends BinaryTre
 	
 	
 	
+	
+	
+	
+	
 	public T getSuccessor(T entry) {
 		return getSuccessor(getRootNode(), entry);
 	}
 	//only works when it has right children
 	private T getSuccessor(BinaryNode<T> rootNode, T entry) {
 		T result = null;
-		BinaryNode<T> tempNode;
+		BinaryNode<T> tempNode = null;
 		if(rootNode != null) {
 			T rootEntry = rootNode.getData();
 			
@@ -85,22 +88,12 @@ public class BinarySearchTree<T extends Comparable<? super T>> extends BinaryTre
 			}
 			else if(entry.compareTo(rootEntry) > 0)
 				result = getSuccessor(rootNode.getRightChild(), entry);
-			else{
+			else
 				result = getSuccessor(rootNode.getLeftChild(), entry);
-			}
-			
 		}
-		
 		return result;
 	}//end getSuccesor
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public T add(T newEntry) {
 		T result = null;
 		if(isEmpty())
