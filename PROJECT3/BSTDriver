@@ -1,0 +1,110 @@
+package Homework3;
+import java.util.Scanner;
+public class BSTDriver {
+	private static BinarySearchTree<Integer> bst;
+
+	public static void promptUser() {
+		
+			Scanner kb= new Scanner(System.in);
+			System.out.print("\nCommand? ");
+			String input = kb.nextLine();
+			switch(input) {
+			case "I":
+				insertValue();
+				break;
+			case "D":
+				deleteValue();
+				break;
+			case "P":
+				findPre();
+				break;
+			case "S":
+				findSucc();
+				break;
+			case "E":
+				System.exit(0);
+				break;
+			case "H":
+				displayP();
+				break;
+				
+			}
+			
+			kb.close();
+	}
+	public static void insertValue() {
+		System.out.print("Please enter a number to add: ");
+		Scanner kb = new Scanner(System.in);
+		int inputAdd = kb.nextInt();
+		if(bst.contains(inputAdd))
+			System.out.println(inputAdd +" already exists, ignore." );
+		else {
+			bst.add(inputAdd);
+			System.out.print("\nIn-order: ");
+			bst.inorderTraverse();
+		}
+		
+		promptUser();
+		kb.close();
+	}
+	public static void deleteValue() {
+		System.out.print("Please enter a number to delete: ");
+		Scanner kb= new Scanner(System.in);
+		int inputDelete = kb.nextInt();
+		if(!bst.contains(inputDelete))
+			System.out.println(inputDelete + " does not exist!");
+		else {
+		bst.remove(inputDelete);
+		System.out.print("\nIn-order: ");
+		bst.inorderTraverse();
+		}
+
+		promptUser();
+		kb.close();
+	}
+	public static void findPre() {
+		System.out.print("Please enter a number to find the predecessor: ");
+		Scanner kb= new Scanner(System.in);
+		int inputPre = kb.nextInt();
+		System.out.print(bst.getPredecessor(inputPre));
+		
+		promptUser();
+		kb.close();
+	}
+	public static void findSucc() {
+		System.out.print("Please enter a number to find the successor: ");
+		Scanner kb= new Scanner(System.in);
+		int inputSucc = kb.nextInt();
+		System.out.print(bst.getSuccessor(inputSucc));
+
+		promptUser();
+		kb.close();
+	}
+	public static void displayP() {
+		 System.out.println("I Insert a value");
+		 System.out.println("D Delete a value");
+		 System.out.println("P Find predecessor");
+		 System.out.println("S Find sucessor");
+		 System.out.println("E Exit the program");
+		 System.out.println("H Display this message");
+		 promptUser();
+	}
+	public static void main(String[] args) {
+		
+		System.out.println("Entering 51,29,68,90,36,40,22,59,44,99,77,60,27,83,15,75,3 into the BST");
+		bst = new BinarySearchTree<>();
+		Integer[] entries = {51,29,68,90,36,40,22,59,44,99,77,60,27,83,15,75,3};
+		for(Integer n: entries)
+			bst.add(n);
+		System.out.print("\nPre-order: ");
+		bst.preorderTraverse();
+		System.out.print("\nIn-order: ");
+		bst.inorderTraverse();
+		System.out.print("\nPost-order: ");
+		bst.postorderTraverse();
+		System.out.println("");
+	
+		promptUser();
+		
+	}
+}
