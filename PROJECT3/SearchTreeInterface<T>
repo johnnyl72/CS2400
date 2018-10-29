@@ -1,11 +1,9 @@
 package Homework3;
 
-public interface SearchTreeInterface<T> extends TreeInterface<T>{
-	
+public interface SearchTreeInterface<T extends Comparable<? super T>> extends TreeInterface<T> {
+
 	public boolean contains(T entry);
 	public T getEntry (T entry);
 	public T add(T newEnty);
 	public T remove(T entry);
-
-	 
- }	//	end	SearchTreeInterface
+}
