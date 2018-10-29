@@ -7,13 +7,12 @@ public class BinaryNode<T> {
 	private BinaryNode<T> rightChild;
 	
 	public BinaryNode() {
-		this(null);
+		this(null); //calls next constructor
 	}
 	public BinaryNode(T dataPortion) {
-		this(dataPortion, null, null);
+		this(dataPortion, null, null); //calls next constructor
 	}
-	public BinaryNode(T dataPortion, BinaryNode<T> newLeftChild,
-									 BinaryNode<T> newRightChild) {
+	public BinaryNode(T dataPortion, BinaryNode<T> newLeftChild, BinaryNode<T> newRightChild) {
 		data = dataPortion;
 		leftChild = newLeftChild;
 		rightChild = newRightChild;
@@ -36,8 +35,6 @@ public class BinaryNode<T> {
 	public boolean isLeaf() {
 		return (leftChild == null) && (rightChild == null);
 	}
-	
-	
 	public BinaryNode<T> getRightChild() { 
 		return rightChild;
 	} 
@@ -47,9 +44,7 @@ public class BinaryNode<T> {
 	public boolean hasRightChild() { 
 		return rightChild != null;
 	}
-	
 
-	
 	public BinaryNode<T> copy(){
 		BinaryNode<T> newRoot = new BinaryNode<>(data);
 		
@@ -108,4 +103,5 @@ public class BinaryNode<T> {
 			return this; 
 		} 
 	}
+	
 }
