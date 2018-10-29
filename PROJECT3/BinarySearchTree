@@ -51,9 +51,14 @@ public class BinarySearchTree<T extends Comparable<? super T>> extends BinaryTre
 			T rootEntry = rootNode.getData();
 			
 			if(entry.compareTo(rootEntry) == 0) {
+				if(rootNode.hasLeftChild() && rootNode.hasRightChild()) {
 				tempNode = rootNode.getLeftChild();
 				result = tempNode.getRightmostData();
-				
+				}
+				else if(!rootNode.hasRightChild()){
+					tempNode = rootNode.getLeftChild();
+					result = tempNode.getData();
+				}
 			}
 			else if(entry.compareTo(rootEntry) > 0)
 				result = getPredecessor(rootNode.getRightChild(), entry);
