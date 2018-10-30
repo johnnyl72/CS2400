@@ -111,6 +111,6 @@ public class BSTDriver {
 		System.out.println("");
 
 		promptUser();
-		
+		kb.close();
 	}
 }
