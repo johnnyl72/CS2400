@@ -1,6 +1,6 @@
 package Homework3;
 
-public class BinaryTree<T> extends BinaryNode<T> implements BinaryTreeInterface<T> {
+public class BinaryTree<T>{
 	
 	private BinaryNode<T> root;
 	
@@ -10,41 +10,7 @@ public class BinaryTree<T> extends BinaryNode<T> implements BinaryTreeInterface<
 	public BinaryTree(T rootData) {
 		root = new BinaryNode<>(rootData);
 	}//end constructor
-	public BinaryTree(T rootData, BinaryTree<T> leftTree, BinaryTree<T> rightTree) {
-		privateSetTree(rootData, leftTree, rightTree);
-	}//end constructor
-	public void setTree(T rootData) {
-		root = new BinaryNode<>(rootData);
-	}
-	public void setTree(T rootData, BinaryTreeInterface<T>	leftTree, BinaryTreeInterface<T> rightTree) {
-		privateSetTree(rootData, (BinaryTree<T>)leftTree, (BinaryTree<T>)rightTree);
-	}
-	private void privateSetTree(T rootData, BinaryTree<T> leftTree, 
-											BinaryTree<T> rightTree) {
-		root = new BinaryNode<>(rootData);
-		
-		if((leftTree != null) && !leftTree.isEmpty())
-			root.setLeftChild(leftTree.root);
-		if((rightTree != null) && !rightTree.isEmpty()) {
-			if(rightTree != leftTree)
-				root.setRightChild(rightTree.root);
-			else
-				root.setRightChild(rightTree.root.copy());
-		}
-		if ((leftTree != null) && (leftTree != this))
-			leftTree.clear();
-		if ((rightTree != null) && (rightTree != this))
-			rightTree.clear();
-	}//end privateSetTree
 	
-	public void setTree(T rootData, BinaryTree<T> leftTree, BinaryTree<T> rightTree) {
-		root = new BinaryNode<>(rootData);
-	
-		if(leftTree != null)
-			root.setLeftChild(leftTree.root);
-		if(rightTree != null)
-			root.setLeftChild(rightTree.root);
-	}	
 	public T getRootData() {
 		if(isEmpty()) {
 			System.out.println("Tree Error");
@@ -67,12 +33,6 @@ public class BinaryTree<T> extends BinaryNode<T> implements BinaryTreeInterface<
 	}
 	protected BinaryNode<T> getRootNode(){
 		return root;
-	}
-	public int getHeight() {
-		return root.getHeight();
-	}
-	public int getNumberOfNodes() {
-		return root.getNumberOfNodes();
 	}
 	// traversals via recursion
 	public void preorderTraverse() { 
@@ -106,5 +66,6 @@ public class BinaryTree<T> extends BinaryNode<T> implements BinaryTreeInterface<
 		}		
 	}
 	
+
 
 } //end BinaryTree
