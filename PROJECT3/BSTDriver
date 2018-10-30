@@ -1,4 +1,5 @@
 package Homework3;
+
 import java.util.Scanner;
 public class BSTDriver {
 	private static BinarySearchTree<Integer> bst;
@@ -8,34 +9,39 @@ public class BSTDriver {
 			Scanner kb= new Scanner(System.in);
 			System.out.print("\nCommand? ");
 			String input = kb.nextLine();
-			switch(input) {
-			case "I":
-				insertValue();
+			input.toUpperCase();
+			String[] inputArray = input.split(" ");
+		
+			switch(input.charAt(0)) {
+			case 'I':
+				int add = Integer.parseInt(inputArray[1]);
+				insertValue(add);
 				break;
-			case "D":
-				deleteValue();
+			case 'D':
+				int delete = Integer.parseInt(inputArray[1]);
+				deleteValue(delete);
 				break;
-			case "P":
-				findPre();
+			case 'P':
+				int pre = Integer.parseInt(inputArray[1]);
+				findPre(pre);
 				break;
-			case "S":
-				findSucc();
+			case 'S':
+				int succ = Integer.parseInt(inputArray[1]);
+				findSucc(succ);
 				break;
-			case "E":
+			case 'E':
+				System.out.println("Thank you for using my program!");
 				System.exit(0);
 				break;
-			case "H":
+			case 'H':
 				displayP();
 				break;
-				
-			}
 			
+			}
 			kb.close();
 	}
-	public static void insertValue() {
-		System.out.print("Please enter a number to add: ");
-		Scanner kb = new Scanner(System.in);
-		int inputAdd = kb.nextInt();
+	public static void insertValue(int inputAdd) {
+
 		if(bst.contains(inputAdd))
 			System.out.println(inputAdd +" already exists, ignore." );
 		else {
@@ -45,12 +51,9 @@ public class BSTDriver {
 		}
 		
 		promptUser();
-		kb.close();
 	}
-	public static void deleteValue() {
-		System.out.print("Please enter a number to delete: ");
-		Scanner kb= new Scanner(System.in);
-		int inputDelete = kb.nextInt();
+	public static void deleteValue(int inputDelete) {
+		
 		if(!bst.contains(inputDelete))
 			System.out.println(inputDelete + " does not exist!");
 		else {
@@ -60,25 +63,20 @@ public class BSTDriver {
 		}
 
 		promptUser();
-		kb.close();
 	}
-	public static void findPre() {
-		System.out.print("Please enter a number to find the predecessor: ");
-		Scanner kb= new Scanner(System.in);
-		int inputPre = kb.nextInt();
-		System.out.print(bst.getPredecessor(inputPre));
+	public static void findPre(int inputPre) {
+
+		System.out.print("\n"+bst.getPredecessor(inputPre));
 		
 		promptUser();
-		kb.close();
+		
 	}
-	public static void findSucc() {
-		System.out.print("Please enter a number to find the successor: ");
-		Scanner kb= new Scanner(System.in);
-		int inputSucc = kb.nextInt();
-		System.out.print(bst.getSuccessor(inputSucc));
+	public static void findSucc(int inputSucc) {
+	
+		System.out.print("\n"+bst.getSuccessor(inputSucc));
 
 		promptUser();
-		kb.close();
+
 	}
 	public static void displayP() {
 		 System.out.println("I Insert a value");
@@ -90,10 +88,18 @@ public class BSTDriver {
 		 promptUser();
 	}
 	public static void main(String[] args) {
+		System.out.println("Please enter the initial sequence");
+		Scanner kb = new Scanner(System.in);
+		String input = kb.nextLine();
+		String[] inputArray = input.split(" ");
+		int[] entries = new int[inputArray.length];
 		
-		System.out.println("Entering 51,29,68,90,36,40,22,59,44,99,77,60,27,83,15,75,3 into the BST");
+		//String to Integer type
+		for(int i = 0; i < inputArray.length; i++) {
+			entries[i] = Integer.parseInt(inputArray[i]);
+		}
+	
 		bst = new BinarySearchTree<>();
-		Integer[] entries = {51,29,68,90,36,40,22,59,44,99,77,60,27,83,15,75,3};
 		for(Integer n: entries)
 			bst.add(n);
 		System.out.print("\nPre-order: ");
@@ -103,7 +109,7 @@ public class BSTDriver {
 		System.out.print("\nPost-order: ");
 		bst.postorderTraverse();
 		System.out.println("");
-	
+
 		promptUser();
 		
 	}
