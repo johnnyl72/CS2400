@@ -2,6 +2,16 @@ package Homework3;
 
 public class BinarySearchTree<T extends Comparable<? super T>> extends BinaryTree<T> 
 												   implements SearchTreeInterface<T>{
+	T result;
+	/** predecessor is instance field and updated to keep track 
+	 	of parent node before every inorder traverse
+	 **/
+	BinaryNode<T> predecessor;
+	/** successor is instance field and updated to keep track 
+ 		of parent node before every inorder traverse
+	 **/
+	BinaryNode<T> successor;
+	
 	public BinarySearchTree() {
 		super();
 	}
@@ -16,6 +26,10 @@ public class BinarySearchTree<T extends Comparable<? super T>> extends BinaryTre
 		throw new UnsupportedOperationException();
 	}
 	
+	
+	public boolean contains(T entry) {
+		return getEntry(entry) != null;
+	}
 	public T getEntry(T entry) {
 		return findEntry(getRootNode(), entry);
 		
@@ -27,7 +41,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> extends BinaryTre
 			T rootEntry = rootNode.getData();
 			if(entry.equals(rootEntry))
 				result = rootEntry;
-			else if(entry.compareTo(rootEntry) < 0)
+			else if(entry.compareTo(rootEntry) < 0)	
 				result = findEntry(rootNode.getLeftChild(), entry);
 			else
 				result = findEntry(rootNode.getRightChild(), entry);
@@ -35,69 +49,110 @@ public class BinarySearchTree<T extends Comparable<? super T>> extends BinaryTre
 		return result;
 	}//end findEntry
 	
-	public boolean contains(T entry) {
-		return getEntry(entry) != null;
-	}
+
 	
 	public T getPredecessor(T entry) {
 		return getPredecessor(getRootNode(), entry);
 	}
 	//rightmost on the left subtree
 	private T getPredecessor(BinaryNode<T> rootNode, T entry) {
-		T result = null;
-		BinaryNode<T> tempNode;
-		BinaryNode<T> tempNode2 = null;
-		if(rootNode != null) {
-			T rootEntry = rootNode.getData();
-			
-			if(entry.compareTo(rootEntry) == 0) {
-				if(rootNode.hasLeftChild() && rootNode.hasRightChild()) {
-				tempNode = rootNode.getLeftChild();
-				result = tempNode.getRightmostData();
-				}
-				else if(!rootNode.hasRightChild()){
-					tempNode = rootNode.getLeftChild();
-					result = tempNode.getData();
-				}
-				else if(!rootNode.hasLeftChild()) {
-					//TBD
-				}
+		//if the rootnode is null, it will return null (never happen)
+		if(rootNode == null)
+			result = null;
+		//the entry is the smaller number, therefore no predecessor
+		if(entry == rootNode.getLeftmostData())
+			result = null;
+		//the entry is found at a specific node
+		if(rootNode.getData() == entry) {
+			// case 1: will go left subtree and find rightmost data
+			if(rootNode.getLeftChild() != null) {
+				result = rootNode.getLeftChild().getRightmost().getData();
 			}
-			else if(entry.compareTo(rootEntry) > 0) {
-				result = getPredecessor(rootNode.getRightChild(), entry);
-			}
-			else{
-	
-				result = getPredecessor(rootNode.getLeftChild(), entry);
-			}
-			
+			// case 2: the entry is a leaf and must traverse up to obtain predecessor
+			else {
+				
+				while(predecessor != null && rootNode == predecessor.getLeftChild()) {
+					predecessor.setParent(predecessor);
+					rootNode = predecessor.getParent();				
+				}
+				
+				if(predecessor == null) {
+					predecessor = null;
+				}
+				else {
+					result = predecessor.getData();
+				}
+			}	
 		}
-		
+		// the entry is smaller than the current node
+		else if(rootNode.getData().compareTo(entry) > 0) {
+			//obtain the parent node before traversing further in
+			
+			if(rootNode.getData().compareTo(entry) < 0) {
+			rootNode.setParent(rootNode);
+			predecessor = rootNode.getParent();
+			}
+			getPredecessor(rootNode.getLeftChild(), entry);
+		}
+		//the entry is bigger than the current node
+		else {
+			//obtain the parent node before traversing further in
+			//condition is to only allow parent nodes smaller than the entry
+			if(rootNode.getData().compareTo(entry) < 0) {
+			rootNode.setParent(rootNode);
+			predecessor = rootNode.getParent();
+			}
+			getPredecessor(rootNode.getRightChild(),entry);
+		}
 		return result;
+			
 	}//end getPredecessor
-	
+
 	public T getSuccessor(T entry) {
 		return getSuccessor(getRootNode(), entry);
 	}
 	//leftmost on right subtree to find successor
 	private T getSuccessor(BinaryNode<T> rootNode, T entry) {
-		T result = null;
-		BinaryNode<T> tempNode = null;
-		if(rootNode != null) {
-			T rootEntry = rootNode.getData();
-			
-			if(entry.compareTo(rootEntry) == 0) {
-				if(rootNode.hasLeftChild() && rootNode.hasRightChild()) {
-					tempNode = rootNode.getRightChild();
-					result = tempNode.getLeftmostData();
-					}
-				//tbd
-				
+		if(rootNode == null)
+			result = null;
+		if(entry == rootNode.getRightmostData())
+			result = null;
+		if(rootNode.getData() == entry) {
+			if(rootNode.getRightChild() != null) {
+				result = rootNode.getRightChild().getLeftmost().getData();
 			}
-			else if(entry.compareTo(rootEntry) > 0)
-				result = getSuccessor(rootNode.getRightChild(), entry);
-			else
-				result = getSuccessor(rootNode.getLeftChild(), entry);
+		
+			else {
+				
+				while(successor != null && rootNode == successor.getRightChild()) {
+					successor.setParent(successor);
+					rootNode = successor.getParent();				
+				}
+				if(successor == null) {
+					successor = null;
+				}
+				else {
+					result = successor.getData();
+				}
+			}	
+		}
+		// the entry is smaller than the current node
+		else if(rootNode.getData().compareTo(entry) > 0) {
+			//set the successor only if it is bigger than the entry
+			if(rootNode.getData().compareTo(entry) > 0) {
+				rootNode.setParent(rootNode);
+				successor = rootNode.getParent();
+			}
+			getSuccessor(rootNode.getLeftChild(),entry);
+		}
+		//the entry is bigger than the current node
+		else {
+			//set the successor only if it is bigger than the entry
+			if(rootNode.getData().compareTo(entry) > 0) {
+				rootNode.setParent(rootNode);
+				successor = rootNode.getParent();
+			}
+			getSuccessor(rootNode.getRightChild(),entry);
 		}
 		return result;
 	}//end getSuccesor
@@ -176,7 +231,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> extends BinaryTre
 		}
 		return rootNode;
 	}//end of removeEntry
-
+	
+	//used for remove()
 	private BinaryNode<T> removeFromRoot(BinaryNode<T> rootNode){
 		// case 1 : rootNode has 2 children
 		if(rootNode.hasLeftChild() && rootNode.hasRightChild()) {
@@ -197,11 +253,13 @@ public class BinarySearchTree<T extends Comparable<? super T>> extends BinaryTre
 		
 		return rootNode;
 	}
+	//used for remove()
 	private BinaryNode<T> findLargest(BinaryNode<T> rootNode){
 		if(rootNode.hasRightChild())
 			rootNode = findLargest(rootNode.getRightChild());
 		return rootNode;
 	}
+	//used for remove()
 	private BinaryNode<T> removeLargest(BinaryNode<T> rootNode){
 		if(rootNode.hasRightChild()) {
 			BinaryNode<T> rightChild = rootNode.getRightChild();
