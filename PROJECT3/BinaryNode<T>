@@ -2,23 +2,31 @@ package Homework3;
 
 public class BinaryNode<T> {
 	
-	private T data;
-	private BinaryNode<T> leftChild;
-	private BinaryNode<T> rightChild;
+	protected T data;
+	protected BinaryNode<T> leftChild;
+	protected BinaryNode<T> rightChild;
+	protected BinaryNode<T> parent;
 	
 	public BinaryNode() {
 		this(null); //calls next constructor
 	}
 	public BinaryNode(T dataPortion) {
-		this(dataPortion, null, null); //calls next constructor
+		this(dataPortion, null, null,null); //calls next constructor
 	}
-	public BinaryNode(T dataPortion, BinaryNode<T> newLeftChild, BinaryNode<T> newRightChild) {
+	public BinaryNode(T dataPortion, BinaryNode<T> newLeftChild, BinaryNode<T> newRightChild, BinaryNode<T> initialParent) {
 		data = dataPortion;
 		leftChild = newLeftChild;
 		rightChild = newRightChild;
+		parent = initialParent;
 	}
 	public T getData() {
 		return data;
+	}
+	public BinaryNode<T> getParent() {
+		return parent;
+	}
+	public void setParent(BinaryNode<T> intialParent) {
+		parent = intialParent;
 	}
 	public void setData(T newData) {
 		data = newData;
@@ -31,9 +39,6 @@ public class BinaryNode<T> {
 	}
 	public boolean hasLeftChild() {
 		return leftChild != null;
-	}
-	public boolean isLeaf() {
-		return (leftChild == null) && (rightChild == null);
 	}
 	public BinaryNode<T> getRightChild() { 
 		return rightChild;
@@ -84,7 +89,22 @@ public class BinaryNode<T> {
 		else 
 			return rightChild.getRightmostData(); 
 		} 
-	
+	public BinaryNode<T> getRightmost(){
+		if(rightChild != null) {
+			return rightChild.getRightmost();
+		}
+		else {
+			return this;
+		}
+	}
+	public BinaryNode<T> getLeftmost(){
+		if(leftChild != null) {
+			return leftChild.getLeftmost();
+		}
+		else {
+			return this;
+		}
+	}
 	public BinaryNode<T> removeLeftmost() { 
 		if (leftChild == null) { 
 			return rightChild; 
