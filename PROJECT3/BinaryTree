@@ -1,6 +1,6 @@
 package Homework3;
 
-public class BinaryTree<T> extends BinaryNode<T> implements BinaryTreeInterface<T> {
+public class BinaryTree<T> implements BinaryTreeInterface<T> {
 	
 	private BinaryNode<T> root;
 	
@@ -10,17 +10,17 @@ public class BinaryTree<T> extends BinaryNode<T> implements BinaryTreeInterface<
 	public BinaryTree(T rootData) {
 		root = new BinaryNode<>(rootData);
 	}//end constructor
-	public BinaryTree(T rootData, BinaryTree<T> leftTree, BinaryTree<T> rightTree) {
-		privateSetTree(rootData, leftTree, rightTree);
+	public BinaryTree(T rootData, BinaryTree<T> leftTree, BinaryTree<T> rightTree, BinaryTree<T> initialParent) {
+		privateSetTree(rootData, leftTree, rightTree, initialParent);
 	}//end constructor
 	public void setTree(T rootData) {
 		root = new BinaryNode<>(rootData);
 	}
-	public void setTree(T rootData, BinaryTreeInterface<T>	leftTree, BinaryTreeInterface<T> rightTree) {
-		privateSetTree(rootData, (BinaryTree<T>)leftTree, (BinaryTree<T>)rightTree);
+	public void setTree(T rootData, BinaryTreeInterface<T>	leftTree, BinaryTreeInterface<T> rightTree, BinaryTreeInterface<T> intialParent) {
+		privateSetTree(rootData, (BinaryTree<T>)leftTree, (BinaryTree<T>)rightTree, (BinaryTree<T>) intialParent);
 	}
 	private void privateSetTree(T rootData, BinaryTree<T> leftTree, 
-											BinaryTree<T> rightTree) {
+											BinaryTree<T> rightTree, BinaryTree<T> initialParent) {
 		root = new BinaryNode<>(rootData);
 		
 		if((leftTree != null) && !leftTree.isEmpty())
@@ -106,5 +106,6 @@ public class BinaryTree<T> extends BinaryNode<T> implements BinaryTreeInterface<
 		}		
 	}
 	
+
 
 } //end BinaryTree
