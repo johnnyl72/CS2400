@@ -8,7 +8,19 @@ import java.util.Scanner;
 
 public class MaxHeapDriver {
 	
+	public static void promptUser() {
+		
+	
+	}
+	
+	
 	public static void main(String[] args) {
+		
+		//generates unique numbers from range 1 - 1000
+		Integer entries[] = new Integer[1000];
+		for (int k = 0; k < entries.length; k++) {
+			entries[k] = k + 1;
+		}
 		
 		Scanner kb = new Scanner(System.in);
 		System.out.print("Please select how to test the program: "
@@ -19,21 +31,15 @@ public class MaxHeapDriver {
 		
 		switch(input){
 			case 1: 
+			//series of insertions (O(nlogn))
+				
 				//create 20 heaps
 				MaxHeap heap[] = new MaxHeap[20];
 				int totalSwaps = 0;
-				
-			//series of insertions (O(nlogn))
-				
 				for(int i = 0; i < 20; i++) {
 					//create a heap with 100 entries
 					heap[i] = new MaxHeap(100);
-					
-					//generates unique numbers from range 1 - 1000
-					Integer entries[] = new Integer[1000];
-					for (int k = 0; k < entries.length; k++) {
-						entries[k] = k + 1;
-					}
+				
 					Collections.shuffle(Arrays.asList(entries));
 					
 					//assign 100 unique random numbers to the heap
@@ -46,40 +52,70 @@ public class MaxHeapDriver {
 				System.out.print("\nAverage swaps for series of insertions: ");
 				System.out.println(avgSwaps);
 				
-				
-			
 			//optimal method (O(n))
-				
-				
-				//create unique random numbers from 1-1000
-				Integer entries[] = new Integer[1000];
-				for (int k = 0; k < entries.length; k++) {
-					entries[k] = k + 1; // firstIndex + 1 = 1
-				}
-				Collections.shuffle(Arrays.asList(entries));
-				
-				//create array and assign 100 random numbers
-				Integer array[] = new Integer[100];
-				for(int i = 0; i < array.length ; i++) {
-					array[i] = entries[i];
-				}
-
-				MaxHeap optiHeap = new MaxHeap(array);
-				
-				
-				
+				MaxHeap optiHeap[] = new MaxHeap[20];
 				int totalSwaps1 = 0;
 				
+				for(int i = 0; i < optiHeap.length; i++) {
+					
+					Collections.shuffle(Arrays.asList(entries));
+					
+					//create array and assign 100 random numbers
+					Integer array[] = new Integer[100];
+					for(int j = 0; j < array.length ; j++) {
+						array[j] = entries[j];
+					}
+	
+					optiHeap[i] = new MaxHeap(array);
+					totalSwaps1 += optiHeap[i].getSwaps();
+				}	
 				double avgSwaps1 = totalSwaps1 / 20.0;
 					System.out.print("Average swaps for optimal method: ");
                 	System.out.println(avgSwaps1);
                 	break;
+                	
 			case 2:
+		//series of insertions 
+				
+			MaxHeap heapFix = new MaxHeap(100);
+			int totSwap = 0;
+            	for (int i = 1; i <= 100; i++) {
+            		heapFix.add(i);
+            		totSwap += heapFix.getSwaps();
+            	}
+            	 System.out.print("\nHeap built using series of insertions: ");
+            	 heapFix.print(10);
+            	 System.out.print("Number of swaps: ");
+                 System.out.println(heapFix.getSwaps());
+                 for(int i = 0; i < 10; i++) {
+                	 heapFix.removeMax();
+                 }
+                 System.out.print("\nHeap after 10 removals: ");
+                 heapFix.print(10);
+                 
+        //optimal method
+            MaxHeap heapFixOpt = new MaxHeap();
+            Integer entriesArray[] = new Integer[100];
+            for(int i = 0; i < entriesArray.length; i++) {
+            	entriesArray[i] = i+1;
+            }
+    		heapFixOpt = new MaxHeap(entriesArray);
+			System.out.print("\nHeap built using optimal method: ");
+			heapFix.print(10);
+			
+			System.out.print("Number of swaps: ");
+			System.out.println(heapFixOpt.getSwaps());
+			for(int i = 0; i < 10; i++) {
+				heapFixOpt.removeMax();
+			}
+			System.out.print("\nHeap after 10 removals: ");
+			heapFixOpt.print(10);
 			break;
+			
 			default:
-				System.out.println("Please input 1 or 2! (Restart the program)");
+				System.out.println("Please input 1 or 2!");
 		}
 		
 	
-	}
+	}//end main
 }
