@@ -29,7 +29,7 @@ public class MaxHeap <T extends Comparable<? super T>> implements MaxHeapInterfa
 			heap[index + 1] = entries[index];
 		}
 		
-		for(int rootIndex =lastIndex / 2; rootIndex > 0; rootIndex--) {
+		for(int rootIndex = lastIndex / 2; rootIndex > 0; rootIndex--) {
 			
 			reheap(rootIndex);
 		}
@@ -77,16 +77,17 @@ public class MaxHeap <T extends Comparable<? super T>> implements MaxHeapInterfa
 			if( (rightChildIndex <= lastIndex) &&
 				 heap[rightChildIndex].compareTo(heap[largerChildIndex]) > 0) {
 				largerChildIndex = rightChildIndex;
-				swaps++;
+				
 			}
 			if(orphan.compareTo(heap[largerChildIndex]) < 0) {
 				heap[rootIndex] = heap[largerChildIndex];
 				rootIndex = largerChildIndex;
 				leftChildIndex = 2* rootIndex;
-				swaps++;
+				
 			}
 			else
 				done = true;
+			swaps++;
 		}
 		heap[rootIndex] = orphan; 	
 	}// end reheap 	
@@ -110,6 +111,15 @@ public class MaxHeap <T extends Comparable<? super T>> implements MaxHeapInterfa
 		}
 		lastIndex = 0;
 	}
-	
+	public void print(int n) {
+		int i;
+		for( i = 0; i < n; i++ ) {
+			System.out.print(heap[i+1]);
+			if(i != lastIndex - 1)
+				System.out.print(",");
+		}
+		if( i != lastIndex)
+			System.out.println("... ");
+	}
 	
 }
