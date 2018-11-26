@@ -1,0 +1,6 @@
+package Homework5;
+
+public interface GraphInterface<T> extends BasicGraphInterface<T>, 
+										GraphAlgorithmsInterface<T>{
+	
+}
