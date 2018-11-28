@@ -7,7 +7,6 @@ public class Graph{
 	private boolean[][] edges; // edges[i][j] is true iff a vertex from i to j
 	private char[] labels; // labels[i] contains the label for vertex i
 	
-	@SuppressWarnings("unchecked")
 	public Graph(int n) { 
 		edges = new boolean[n][n]; // All values initially false 
 		labels = new char[n]; // All values initially null 
@@ -32,49 +31,51 @@ public class Graph{
 	public int size() { 
 		return labels.length; 
 	}
+	// Get Breadth-First-Search traversal method
 	public void getBFS(int vertexOrigin) {
+		// Method to check if visited for the 9 labels
 		boolean visited[] = new boolean[9];
-		
+		// Use a queue because it is Breadth-First (we want to see all neighbors first)
 		LinkedList<Integer> queue = new LinkedList<Integer>(); 
-        // Mark the current node as visited and enqueue it 
+        // Mark the current node as visited and queue it 
         visited[vertexOrigin] = true; 
         queue.add(vertexOrigin); 
         
-        //repeat this while loop until the queue is empty (a.k.a done traversing)
+        //Repeat this while loop until the queue is empty (a.k.a done traversing)
         while(queue.size() != 0) {
         	// Dequeue a vertex from queue and print it 
         	vertexOrigin = queue.poll(); 
-            System.out.print(vertexOrigin+" "); 
+        	// .poll methods removes from queue and simultaneously stores the data to vertexOrigin
+            System.out.print(labels[vertexOrigin]+" "); 
             
-            //gather all the labels' neighbors
+            // Gather all the labels' neighbors
             int i; 
     		int count = 0; 
+    		// This loop counts how many neighbors to label and makes an array with that size
     		for (i = 0; i < labels.length; i++) { 
     			if (edges[vertexOrigin][i]) 
     				count++; 
     		} 
     		int[] answer = new int[count]; 
     		count = 0;
+    		// This loop stores which label is a neighbor to the desired label in an array
     		for (i = 0; i < labels.length; i++) {
     			if (edges[vertexOrigin][i]) 
     				answer[count++] = i;
     		}
     		
-    		//get all neighbors of vertexOrigin, if not visited, mark visit and add to queue
+    		// Gathers all the neighbors of vertexOrigin, if not visited, 
+    		// mark as visited and add to enqueue it
     		for(int j = 0; j < answer.length; j++) {
     			int n = answer[j];
-    			
+    			// We are looking for unvisited neighbors to add to queue or else ERROR
     			 if (!visited[n]) 
                  { 
                      visited[n] = true; 
                      queue.add(n); 
                  } 
-    		}
-    				
-    		
-        
-            
-        }
+    		}//end for
+        }//end for
   
-	}
-}
+	}//end BFS
+}//end Graph
