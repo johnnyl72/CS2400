@@ -2,6 +2,7 @@ package Homework5;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import cs2400.ArrayStack;
 
 public class Graph{
 	private boolean[][] edges; // edges[i][j] is true iff a vertex from i to j
@@ -75,7 +76,52 @@ public class Graph{
                      queue.add(n); 
                  } 
     		}//end for
-        }//end for
+        }//end while
   
 	}//end BFS
+	
+	public void getDFS(int vertexOrigin) {
+		boolean visited[] = new boolean[9];
+		ArrayStack<Integer> stack = new ArrayStack<Integer>();
+		stack.push(vertexOrigin);
+		visited[vertexOrigin] = true; 
+		while(!stack.isEmpty()) {
+			
+        	vertexOrigin = stack.peek(); 
+ 
+            System.out.print(labels[vertexOrigin]+" "); 
+            
+            // Gather all the labels' neighbors
+            int i; 
+    		int count = 0; 
+    		// This loop counts how many neighbors to label and makes an array with that size
+    		for (i = 0; i < labels.length; i++) { 
+    			if (edges[vertexOrigin][i]) 
+    				count++; 
+    		} 
+    		int[] answer = new int[count]; 
+    		count = 0;
+    		// This loop stores which label is a neighbor to the desired label in an array
+    		for (i = 0; i < labels.length; i++) {
+    			if (edges[vertexOrigin][i]) 
+    				answer[count++] = i;
+    		}
+    		
+    		
+    		for(int j = 0; j < answer.length; j++) {
+    			int n = answer[j];
+    			
+    			 if (!visited[n]) 
+                 { 
+                     visited[n] = true; 
+                     stack.push(n);
+                     vertexOrigin = n;
+                     break;
+                 } 
+    			 else if(visited[n])
+    				 stack.pop();
+
+    		}//end for
+		}
+	}
 }//end Graph
