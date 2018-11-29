@@ -1,8 +1,5 @@
 package Homework5;
-
-import java.util.Iterator;
 import java.util.LinkedList;
-import cs2400.ArrayStack;
 
 public class Graph{
 	private boolean[][] edges; // edges[i][j] is true iff a vertex from i to j
@@ -76,10 +73,10 @@ public class Graph{
                  } 
     		}//end for
         }//end while
-  
 	}//end BFS
 	
 	public void getDFS(int vertexOrigin) {
+		// Method to check if visited for the 9 labels
 		boolean visited[] = new boolean[9];
 		ArrayStack<Integer> stack = new ArrayStack<Integer>();
 		stack.push(vertexOrigin);
@@ -88,6 +85,7 @@ public class Graph{
 		System.out.print(labels[vertexOrigin]+" ");
         
 		while(!stack.isEmpty()) {
+			// Every iteration, the vertexOrigin updates according to the stack
 			vertexOrigin = stack.peek();
 
             // Gather all the labels' neighbors
@@ -106,6 +104,7 @@ public class Graph{
     				answer[count++] = i;
     		}
     		
+    		// This loop goes into one unvisited neighbor and that unvisited's neighbor, so forth
     		for(int j = 0; j < answer.length; j++) {
     			int n = answer[j];
     			
@@ -119,11 +118,11 @@ public class Graph{
                      break;
                  } 
     			 else if(visited[n]) {
-    				 
+    				 //Pop from stack 
     				 stack.pop();
     			 }
-
     		}//end for
-		}
-	}
+		}//end while
+	}//end getDFS
+	
 }//end Graph
