@@ -7,7 +7,6 @@ import cs2400.ArrayStack;
 public class Graph{
 	private boolean[][] edges; // edges[i][j] is true iff a vertex from i to j
 	private char[] labels; // labels[i] contains the label for vertex i
-	
 	public Graph(int n) { 
 		edges = new boolean[n][n]; // All values initially false 
 		labels = new char[n]; // All values initially null 
@@ -85,12 +84,12 @@ public class Graph{
 		ArrayStack<Integer> stack = new ArrayStack<Integer>();
 		stack.push(vertexOrigin);
 		visited[vertexOrigin] = true; 
+		vertexOrigin = stack.peek();
+		System.out.print(labels[vertexOrigin]+" ");
+        
 		while(!stack.isEmpty()) {
-			
-        	vertexOrigin = stack.peek(); 
- 
-            System.out.print(labels[vertexOrigin]+" "); 
-            
+			vertexOrigin = stack.peek();
+
             // Gather all the labels' neighbors
             int i; 
     		int count = 0; 
@@ -107,7 +106,6 @@ public class Graph{
     				answer[count++] = i;
     		}
     		
-    		
     		for(int j = 0; j < answer.length; j++) {
     			int n = answer[j];
     			
@@ -115,11 +113,15 @@ public class Graph{
                  { 
                      visited[n] = true; 
                      stack.push(n);
+                     
                      vertexOrigin = n;
+                     System.out.print(labels[vertexOrigin]+" ");
                      break;
                  } 
-    			 else if(visited[n])
+    			 else if(visited[n]) {
+    				 
     				 stack.pop();
+    			 }
 
     		}//end for
 		}
