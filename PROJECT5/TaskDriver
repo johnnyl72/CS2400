@@ -1,0 +1,33 @@
+package Homework5;
+
+public class TaskDriver {
+	public static void main(String[] argss) {
+		Graph graph = new Graph(9); 
+		graph.setLabel(0,'A');
+		graph.addEdge(0,1);
+		graph.addEdge(0,3);
+		graph.addEdge(0,4);
+		graph.setLabel(1,'B');
+		graph.addEdge(1,4);
+		graph.setLabel(2,'C');
+		graph.addEdge(2,1);
+		graph.setLabel(3,'D');
+		graph.addEdge(3,6);
+		graph.setLabel(4,'E');
+		graph.addEdge(4,5);
+		graph.addEdge(4,7);
+		graph.setLabel(5,'F');
+		graph.addEdge(5,2);
+		graph.addEdge(5,7);
+		graph.setLabel(6,'G');
+		graph.addEdge(6,7);
+		graph.setLabel(7,'H');
+		graph.addEdge(7,8);
+		graph.setLabel(8,'I');
+		graph.addEdge(8,5);
+	
+		graph.getBFS(0);
+		System.out.println("");
+		graph.getDFS(0);
+	}
+}
